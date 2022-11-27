@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="bookStore.model.BookDAO , bookStore.controller.AdminBookController" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Admin Page</title>
+        <title>User Login Page</title>
          <!-- CDN-->
          <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
          <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -26,39 +25,36 @@
 
    <div class="container">
 
-    <form action="adminbook" method="post">
-        <h2 class="text-center">Add New Book</h2>
+    <form action="userlogin" method="post">
+        <h2 class="text-center">Please Sign In</h2>
         
-        <input type="hidden" name="mode" value="CREATE">
-          
+        <input type="hidden" name="mode" value="SIGNIN">
+        
+        <c:if test="${loginFail}">
         <div class="mb-3">
-            <label for="author" class="form-label">*Author</label>
-            <input type="text" id="author" name="author" placeholder="Enter Author Name" class="form-control" autofocus>
+         <span class="alert alert-danger">Authorization Fail!</span>
+        </div>
+        </c:if>
+        
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" id="email" name="email" placeholder="Enter Your email" class="form-control" autofocus>
+        </div>
+        
+        
+       <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" class="form-control" autofocus>
         </div>
             
-         <div class="mb-3">
-            <label for="genre" class="form-label">*Genre</label>
-            <input type="text" id="genre" name="genre" placeholder="Enter Book Genre" class="form-control" autofocus>
-        </div>
-            
-         <div class="mb-3">
-            <label for="title" class="form-label">*Title</label>
-            <input type="text" id="title" name="title"  placeholder="Enter Book Title" class="form-control" autofocus>
-        </div>
-            
-         <div class="mb-3">
-            <label for="price" class="form-label">*Price</label>
-            <input type="text" id="price" name="price" placeholder="Enter price of book" class="form-control" autofocus>
-        </div>
-                
-            
-      
      
-     <button type="submit" class="badge rounded-pill bg-info text-dark">Create</button>
+     <button type="submit" class="badge rounded-pill bg-info text-dark">Verify</button>
      
      
     </form> <!-- /form -->
-    
+    <div>
+   <a href="user-signup.jsp"> <p> Don't have an account ? Please Signup!</p></a>
+   </div>
     
 </div>
  <!-- ./container -->

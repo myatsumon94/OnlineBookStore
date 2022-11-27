@@ -3,6 +3,7 @@ package bookStore.controller;
 import jakarta.annotation.Resource;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,34 +14,42 @@ import javax.sql.DataSource;
 
 import bookStore.model.BookDAO;
 import bookStore.model.Books;
+import bookStore.model.UserDAO;
 
-public class BookController extends HttpServlet {
+/**
+ * Servlet implementation class AdminBookController
+ */
+public class AdminBookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     
+       
+	
 	@Resource(name = "jdbc/bookStore")
 	private DataSource dataSource;
 	
 	private BookDAO bookDAO;
 	
+	
 	@Override
 	public void init() throws ServletException {
 		bookDAO = new BookDAO(dataSource);
-		
 	}
 	
-	
-    public BookController() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AdminBookController() {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
+    
 	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		showBookList(request, response);
 		
-		
-		/*String mode = request.getParameter("mode");
+		String mode = request.getParameter("mode");
 		if(mode == null) {
 			mode = "LIST";
 		}
@@ -49,13 +58,16 @@ public class BookController extends HttpServlet {
 			showBookList(request, response);
 			break;
 			
+			
 		case "LOAD":
 			loadBook(request, response);
 			break;
 			
+			
 		case "CREATE":
 			createBook(request, response);
 			break;
+			
 			
 		case "UPDATE":
 			updateBook(request, response);
@@ -69,30 +81,31 @@ public class BookController extends HttpServlet {
 			showBookList(request, response);
 			break;
 		}
-		*/
+		
 	}
+    
+    
 
-	private void showBookList(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private void showBookList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		List<Books> bookList = this.bookDAO.getBookList();
 	
 		request.setAttribute("bookList", bookList);
-		RequestDispatcher rd= request.getRequestDispatcher("index.jsp");
+		RequestDispatcher rd= request.getRequestDispatcher("admin-view.jsp");
 		rd.forward(request, response);
 	
 	}
-	
-	
-	/*
+    
+
 	private void loadBook(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+			
+			int id = Integer.parseInt(request.getParameter("id"));
+			Books book = this.bookDAO.getBook(id);
+			
+			request.setAttribute("book", book);
+			RequestDispatcher rd= request.getRequestDispatcher("admin-update.jsp");
+			rd.forward(request, response);
 		
-		int id = Integer.parseInt(request.getParameter("id"));
-		Books book = this.bookDAO.getBook(id);
-		
-		request.setAttribute("book", book);
-		RequestDispatcher rd= request.getRequestDispatcher("admin-create.jsp");
-		rd.forward(request, response);
-	
-	}
+		}
 	
 	
 	private void createBook(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -110,8 +123,9 @@ public class BookController extends HttpServlet {
 		
 		if(rowEffected > 0)
 			showBookList(request, response);
-		  
-
+		 
+		
+		
 	}
 	
 	
@@ -123,7 +137,7 @@ public class BookController extends HttpServlet {
 		String title = request.getParameter("title");
 		double price = Double.parseDouble(request.getParameter("price"));
 		
-		Books book = new Books(id, author, title, genre, price);
+		Books book = new Books(id,author, title, genre, price);
 		
 		int rowEffected = this.bookDAO.updateBook(book);
 		
@@ -142,6 +156,8 @@ public class BookController extends HttpServlet {
 			  showBookList(request, response);
 		}
 	
+
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

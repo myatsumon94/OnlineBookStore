@@ -2,7 +2,6 @@ package test;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,19 +41,19 @@ public class DBTestServlet extends HttpServlet {
 		Connection connection = null;
 		Statement stmt = null;
 		PrintWriter out= response.getWriter();
-		ResultSet books = null;
+		ResultSet rs = null;
 		try {
 			connection = dataSource.getConnection();
 			stmt = connection.createStatement();
-			books = stmt.executeQuery("select * from Books;");
+			rs = stmt.executeQuery("select * from Books;");
 			
-			while(books.next()) {
+			while(rs.next()) {
 				Books book = new Books(
-						books.getInt("id"),
-						books.getString("author"),
-						books.getString("title"),
-						books.getString("genre"),
-						books.getDouble("price")
+						rs.getInt("id"),
+						rs.getString("author"),
+						rs.getString("title"),
+						rs.getString("genre"),
+						rs.getDouble("price")
 						
 						);
 						

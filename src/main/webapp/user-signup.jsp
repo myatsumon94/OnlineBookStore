@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,51 +20,54 @@
     
     
     <body>
-       
-       
-
+   
    <div class="container">
 
-    <form action="bookList" method="post">
-        <h2 class="text-center">User Registration</h2>
+    <form action="user" method="post">
+        <h2 class="mb-3 text-center">User Registration</h2>
         
-        <input type="hidden" name="mode" value="CREATE">
+        <input type="hidden" name="mode" value="SIGNUP">
         
         
         <div class="mb-3">
-            <label class="form-label">*Name</label>
-            <input type="text" placeholder="Enter Your name" class="form-control" autofocus>
+            <label for="name" class="form-label">*Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter Your Name" class="form-control" required="required" autofocus>
         </div>
             
         <div class="mb-3">
-            <label class="form-label">*Email</label>
-            <input type="text" placeholder="Enter Your email" class="form-control" autofocus>
+            <label for="email" class="form-label">*Email</label>
+            <input type="text" id="email" name="email" placeholder="Enter Your email" class="form-control" required="required" autofocus>
         </div>
         
          <div class="mb-3">
-            <label class="form-label">*Address</label>
-            <input type="text" placeholder="Enter Your address" class="form-control" autofocus>
+            <label for="address" class="form-label">*Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter Your address" class="form-control" required="required" autofocus>
         </div>
         
          <div class="mb-3">
-            <label class="form-label">*Phone Number</label>
-            <input type="tel" placeholder="Enter Your Phone Number" class="form-control" autofocus>
+            <label for="phoneNo" class="form-label">*Phone Number</label>
+            <input type="number" id="phoneNo" name="phoneNo" placeholder="Enter Your Phone Number" class="form-control" required="required" autofocus>
         </div>
         
         
        <div class="mb-3">
-            <label class="form-label">*Password</label>
-            <input type="password" placeholder="Enter your password" class="form-control" autofocus>
+            <label for="password" class="form-label">*Password</label>
+            <input type="text" id="password" name="password" placeholder="Enter your password" class="form-control" required="required" autofocus>
         </div>
             
-      
+        
+        <div class="mb-3">
+          <div>
+           <span class="help-block">*Required Fields</span>
+          </div>
+        </div>
    
      <button type="submit" class="badge rounded-pill bg-info text-dark">Submit</button>
      
      <button type="reset" class="badge rounded-pill bg-info text-dark">Reset</button>
     </form> <!-- /form -->
     
-    
+     <p> Already have an account ? <a href="signin.jsp">Please Login In</a> </p>
 </div>
  <!-- ./container -->
 

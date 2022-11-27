@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<%@ page import="bookStore.model.BookDAO" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,29 +22,23 @@
         <link href="css/custom.css" rel="stylesheet" />
     </head>
     <body>
-        <div class="container"></div>
+      
+      	       <div class="container"></div>
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-               
+             
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="admin-create.jsp">Create</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
+                
+                     <button type="button" class="btn btn-lg " data-bs-toggle="popover""><a href="admin-create.jsp">Create</a></button>
                     </ul>
                 </div>
             </div>
         </nav>
+      
+        
         <!-- Page content-->
         <div class="container mt-5">
                 <table id="bookList" class="table table-striped">
@@ -54,33 +49,38 @@
                             <th>Genre</th>
                             <th>Title</th>
                             <th>Price</th>
-                            <th>Action</th>
+                            
                         </tr>
                     </thead>
                     
                     <tbody>
-	                    <c:forEach var="bookList" items="${book_list}">
+	                    <c:forEach var="book" items="${bookList}">
 	                    
-	                     <c:url var="create" value="bookList">
+	                     <c:url var="update" value="adminbook">
 	                            <c:param name="mode" value="LOAD"></c:param>
-	                            <c:param name="id" value="${bookList.id}"></c:param>	                            
+	                            <c:param name="id" value="${book.id}"></c:param>                            
 	                       </c:url>
-	                    
 	                 
+	                 	 <c:url var="delete" value="adminbook">
+	                            <c:param name="mode" value="DELETE"></c:param>
+	                            <c:param name="id" value="${book.id}"></c:param>	                            
+	                       </c:url>
+	                       
 	                        <tr>
 	                      
-	                            <td> <c:out value="${bookList.id }"></c:out> </td>
-	                            <td> <c:out value="${bookList.author }"></c:out> </td>
-	                            <td> <c:out value="${bookList.genre }"></c:out> </td>
-	                            <td> <c:out value="${bookList.title }"></c:out> </td>
-	                            <td> <c:out value="${bookList.price }"></c:out> </td>
+	                            <td> <c:out value="${book.id}"></c:out> </td>
+	                            <td> <c:out value="${book.author}"></c:out> </td>
+	                            <td> <c:out value="${book.genre}"></c:out> </td>
+	                            <td> <c:out value="${book.title}"></c:out> </td>
+	                            <td> <c:out value="${book.price}"></c:out> </td>
 	                            
-	                            <td>
-	                          
-	                              <a href="#" class="badge rounded-pill bg-warning text-dark">Edit</a>
-	                              <a href="#" class="badge rounded-pill bg-danger">Delete</a>
+
+								 <td>    
+	                              <a href="${update}" class="badge rounded-pill bg-warning text-dark">Update</a>
+	                              <a href="${delete}" onclick="return confirm('Are you sure to delete this book ? ')" class="badge rounded-pill bg-danger">Delete</a>
 	                            </td>
 	                            
+								
 	                        </tr>
 	                     </c:forEach>
                     </tbody>
@@ -98,6 +98,9 @@
                  $('#bookList').DataTable();
             });
         </script>
+        
+      
+        
     </body>
 </html>
     

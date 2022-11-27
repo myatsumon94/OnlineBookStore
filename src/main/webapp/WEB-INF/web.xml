@@ -2,12 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="5.0">
   <display-name>BookStore</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>default.html</welcome-file>
     <welcome-file>default.jsp</welcome-file>
-    <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   <servlet>
     <description></description>
@@ -31,12 +26,92 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>RouteLoginPage</display-name>
+    <servlet-name>RouteLoginPage</servlet-name>
+    <servlet-class>bookStore.controller.RouteLoginPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RouteLoginPage</servlet-name>
+    <url-pattern></url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginController</display-name>
+    <servlet-name>LoginController</servlet-name>
+    <servlet-class>bookStore.controller.LoginController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginController</servlet-name>
+    <url-pattern>/userlogin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserController</display-name>
+    <servlet-name>UserController</servlet-name>
+    <servlet-class>bookStore.controller.UserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserController</servlet-name>
+    <url-pattern>/user</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminBookController</display-name>
+    <servlet-name>AdminBookController</servlet-name>
+    <servlet-class>bookStore.controller.AdminBookController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminBookController</servlet-name>
+    <url-pattern>/adminbook</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminController</display-name>
+    <servlet-name>AdminController</servlet-name>
+    <servlet-class>bookStore.controller.AdminController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminController</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminLoginController</display-name>
+    <servlet-name>AdminLoginController</servlet-name>
+    <servlet-class>bookStore.controller.AdminLoginController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminLoginController</servlet-name>
+    <url-pattern>/adminlogin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminRouteLoginPage</display-name>
+    <servlet-name>AdminRouteLoginPage</servlet-name>
+    <servlet-class>bookStore.controller.AdminRouteLoginPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminRouteLoginPage</servlet-name>
+    <url-pattern>/AdminRouteLoginPage</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>UserBookController</display-name>
     <servlet-name>UserBookController</servlet-name>
     <servlet-class>bookStore.controller.UserBookController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>UserBookController</servlet-name>
-    <url-pattern>/UserBookController</url-pattern>
+    <url-pattern>/userbook</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CartController</display-name>
+    <servlet-name>CartController</servlet-name>
+    <servlet-class>bookStore.controller.CartController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CartController</servlet-name>
+    <url-pattern>/cart</url-pattern>
   </servlet-mapping>
 </web-app>

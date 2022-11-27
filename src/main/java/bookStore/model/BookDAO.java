@@ -17,7 +17,7 @@ public class BookDAO {
 	private Connection connection;
 	private Statement stmt;
 	private PreparedStatement pstmt;
-	private ResultSet books;
+	private ResultSet rs;
 
 	public BookDAO(DataSource dataSource) {
 		super();
@@ -35,45 +35,19 @@ public class BookDAO {
 	}
 	
 	public List<Books> getBookList(){
-		List<Books> book_list = new ArrayList<>();
+		List<Books> bookList = new ArrayList<>();
 		try {
 			connection = dataSource.getConnection();
 			stmt = connection.createStatement();
-			books = stmt.executeQuery("select * from Books;");
+			rs = stmt.executeQuery("select * from Books;");
 			
-			while (books.next()) {
-				book_list.add(new Books(
-						books.getInt("id"),
-						books.getString("author"), 
-						books.getString("title"),
-						books.getString("genre"),
-						books.getDouble("price")));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close();
-		}
-		return book_list;
-		
-	}
-	
-/*	
-	public Books getBook(int id){
-		Books bookList = null;
-		try {
-			connection = dataSource.getConnection();
-			stmt = connection.createStatement();
-			books = stmt.executeQuery("select * from Books where id ='"+id+"';");
-			
-			while (books.next()) {
-				bookList = new Books(
-						books.getInt("id"),
-						books.getString("author"), 
-						books.getString("title"),
-						books.getString("genre"),
-						books.getDouble("price"));
+			while (rs.next()) {
+				bookList.add(new Books(
+						rs.getInt("id"),
+						rs.getString("author"), 
+						rs.getString("title"),
+						rs.getString("genre"),
+						rs.getDouble("price")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -84,9 +58,35 @@ public class BookDAO {
 		return bookList;
 		
 	}
+
 	
-	*/
-	public int createBook(Books bookList) {
+	public Books getBook(int id){
+		Books book = null;
+		try {
+			connection = dataSource.getConnection();
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery("select * from Books where id ='"+id+"';");
+			
+			while (rs.next()) {
+				book = new Books(
+						rs.getInt("id"),
+						rs.getString("author"), 
+						rs.getString("title"),
+						rs.getString("genre"),
+						rs.getDouble("price"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return book;
+		
+	}
+	
+	
+	public int createBook(Books book) {
 		int rowEffected = 0;
 		try {
 			connection = dataSource.getConnection();
@@ -96,10 +96,10 @@ public class BookDAO {
 					+ " VALUES (?,?,?,?);"
 					);
 			
-			pstmt.setString(1, bookList.getAuthor());
-			pstmt.setString(2, bookList.getGenre());
-			pstmt.setString(3, bookList.getTitle());
-			pstmt.setDouble(4, bookList.getPrice());
+			pstmt.setString(1, book.getAuthor());
+			pstmt.setString(2, book.getGenre());
+			pstmt.setString(3, book.getTitle());
+			pstmt.setDouble(4, book.getPrice());
 			
 			rowEffected = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -112,7 +112,9 @@ public class BookDAO {
 		
 	}
 	
-	public int updateBook(Books bookList) {
+	
+	
+	public int updateBook(Books book) {
 		int rowEffected = 0;
 		try {
 			connection = dataSource.getConnection();
@@ -125,11 +127,11 @@ public class BookDAO {
 					
 					);
 			
-			pstmt.setString(1, bookList.getAuthor());
-			pstmt.setString(2, bookList.getGenre());
-			pstmt.setString(3, bookList.getTitle());
-			pstmt.setDouble(4, bookList.getPrice());
-			pstmt.setInt(5,bookList.getId());
+			pstmt.setString(1, book.getAuthor());
+			pstmt.setString(2, book.getGenre());
+			pstmt.setString(3, book.getTitle());
+			pstmt.setDouble(4, book.getPrice());
+			pstmt.setInt(5,book.getId());
 			
 			rowEffected = pstmt.executeUpdate();
 			
@@ -162,4 +164,6 @@ public class BookDAO {
 			}
 			return rowEffected;
     }
+    
+
 }
